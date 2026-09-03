@@ -289,7 +289,7 @@ const CarouselIndicatorGroup = ({ children, ...props }: CarouselIndicatorGroupPr
 
     // If the children is a render prop, we need to pass the index to the render prop.
     if (typeof children === "function") {
-        return <nav {...props}>{scrollSnaps.map((index) => children({ index }))}</nav>;
+        return <nav {...props}>{scrollSnaps.map((_, index) => children({ index }))}</nav>;
     }
 
     return <nav {...props}>{children}</nav>;

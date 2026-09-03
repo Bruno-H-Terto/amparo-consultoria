@@ -1,7 +1,23 @@
 @theme {
+    /* AMPARO COLOR PALETTE — edit these values to rebrand the application. */
+    --color-amparo-50: #f7f5f0;
+    --color-amparo-100: #e5ece7;
+    --color-amparo-200: #cbdad0;
+    --color-amparo-300: #adc5b5;
+    --color-amparo-400: #7fa58d;
+    --color-amparo-500: #4f7d76;
+    --color-amparo-600: #24566b;
+    --color-amparo-700: #204c5f;
+    --color-amparo-800: #1b3e4b;
+    --color-amparo-900: #172f39;
+    --color-amparo-950: #0f2027;
+    --color-amparo-slate: #66767d;
+    --color-carousel-overlay: rgb(0 0 0);
+
     /* FONT FAMILY */
     --font-body: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --font-display: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-editorial: Georgia, "Times New Roman", serif;
     --font-mono: ui-monospace, "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     /* FONT SIZE */
@@ -106,17 +122,17 @@
     --color-alpha-white: rgb(255 255 255);
     --color-alpha-black: rgb(0 0 0);
 
-    --color-brand-50: rgb(249 245 255);
-    --color-brand-100: rgb(244 235 255);
-    --color-brand-200: rgb(233 215 254);
-    --color-brand-300: rgb(214 187 251);
-    --color-brand-400: rgb(182 146 246);
-    --color-brand-500: rgb(158 119 237);
-    --color-brand-600: rgb(127 86 217);
-    --color-brand-700: rgb(105 65 198);
-    --color-brand-800: rgb(83 56 158);
-    --color-brand-900: rgb(66 48 125);
-    --color-brand-950: rgb(44 28 95);
+    --color-brand-50: var(--color-amparo-50);
+    --color-brand-100: var(--color-amparo-100);
+    --color-brand-200: var(--color-amparo-200);
+    --color-brand-300: var(--color-amparo-300);
+    --color-brand-400: var(--color-amparo-400);
+    --color-brand-500: var(--color-amparo-500);
+    --color-brand-600: var(--color-amparo-600);
+    --color-brand-700: var(--color-amparo-700);
+    --color-brand-800: var(--color-amparo-800);
+    --color-brand-900: var(--color-amparo-900);
+    --color-brand-950: var(--color-amparo-950);
 
     /* LIGHT MODE VARIABLES */
 
