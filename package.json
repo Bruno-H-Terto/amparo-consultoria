@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "@untitledui/icons": "^0.0.22",
     "embla-carousel-react": "^8.6.0",
     "react": "^19.2.8",
     "react-aria-components": "^1.21.0",
     "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.3",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
     "tailwindcss-animate": "^1.0.7",

@@ -6,27 +6,27 @@ import { cx } from "@/utils/cx";
 const slides = [
   {
     eyebrow: "Cuidado que gera confiança",
-    title: "Amparo para quem importa. Segurança para quem cuida.",
-    description: "Consultoria especializada para transformar decisões complexas em jornadas de cuidado mais seguras, humanas e tranquilas.",
+    title: "Cuidar de quem você ama com confiança.",
+    description: "A Amparo conecta famílias a uma rede de profissionais qualificados, construindo soluções personalizadas para as necessidades de cada idoso.",
     image: "/images/granny-pointing.jpg",
-    imageAlt: "Mulher madura sorridente em retrato editorial",
-    position: "object-[72%_38%]",
+    imageAlt: "Mulher madura sorridente apontando para o conteúdo",
+    position: "object-[50%_0%]",
   },
   {
     eyebrow: "Presença que acolhe",
     title: "Cuidado humano. Orientação segura.",
     description: "Soluções conduzidas com escuta, experiência e respeito à autonomia de cada pessoa e de cada família.",
-    image: "/images/granny-smiling.jpg",
-    imageAlt: "Mulher madura sorrindo com serenidade",
-    position: "object-[72%_36%]",
+    image: "/images/gallery-08.jpg",
+    imageAlt: "Casal maduro em um abraço acolhedor",
+    position: "object-[62%_58%]",
   },
   {
     eyebrow: "Relações que protegem",
     title: "Tranquilidade para viver cada fase.",
     description: "Uma rede de apoio construída para que cuidado, independência e afeto caminhem sempre juntos.",
-    image: "/images/family-grandparents.jpg",
-    imageAlt: "Família compartilhando um momento espontâneo em casa",
-    position: "object-[58%_center]",
+    image: "/images/gallery-13.jpg",
+    imageAlt: "Mulher madura celebrando a vida com autonomia",
+    position: "object-[58%_60%]",
   },
 ];
 
@@ -34,7 +34,7 @@ function ArrowIcon({ className }: { className?: string }) {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className={className}><path d="M8.91 19.92 15.43 13.4a1.98 1.98 0 0 0 0-2.8L8.91 4.08" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
-function AutoAdvance({ delay = 8000 }: { delay?: number }) {
+function AutoAdvance({ delay = 20000 }: { delay?: number }) {
   const { api, selectedIndex } = useCarousel();
   useEffect(() => {
     if (!api) return;
@@ -46,7 +46,7 @@ function AutoAdvance({ delay = 8000 }: { delay?: number }) {
 
 export default function HeroCarousel() {
   return (
-    <section id="inicio" className="h-svh min-h-160 overflow-hidden bg-amparo-900">
+    <section id="inicio" className="h-svh overflow-hidden bg-amparo-900">
       <Carousel.Root aria-label="Apresentação Amparo" opts={{ loop: true }} className="group h-full overflow-hidden">
         <AutoAdvance />
         <Carousel.Content className="h-full">
@@ -59,9 +59,12 @@ export default function HeroCarousel() {
               <div className="relative z-10 mx-auto flex h-full max-w-container items-center px-8 pt-24 pb-10 sm:px-14 lg:px-24">
                 <div className="max-w-3xl text-amparo-50">
                   <p className="mb-6 text-xs font-semibold tracking-[0.28em] text-amparo-300 uppercase">{slide.eyebrow}</p>
-                  <h1 className="font-editorial text-5xl leading-[0.98] font-medium tracking-[-0.04em] text-balance sm:text-7xl lg:text-[5.75rem]">{slide.title}</h1>
+                  <h1 className="font-editorial text-5xl leading-[0.98] font-medium tracking-[-0.04em] text-balance sm:text-7xl lg:text-[4rem]">{slide.title}</h1>
                   <p className="mt-8 max-w-2xl text-base leading-7 text-amparo-100 sm:text-lg">{slide.description}</p>
-                  <Link href="#servicos" className="mt-10 inline-flex items-center bg-amparo-50 px-6 py-3.5 text-sm font-semibold text-amparo-900 outline-amparo-400 transition hover:bg-amparo-400 focus-visible:outline-2 focus-visible:outline-offset-4">Conheça nossas soluções</Link>
+                  <div className="mt-10 flex flex-wrap gap-4">
+                    <Link href="/servicos" className="inline-flex items-center bg-amparo-50 px-6 py-3.5 text-sm font-semibold text-amparo-900 outline-amparo-400 transition hover:bg-amparo-400 focus-visible:outline-2 focus-visible:outline-offset-4">Conheça nossos serviços</Link>
+                    <Link href="#contato" className="inline-flex items-center border border-amparo-50/60 px-6 py-3.5 text-sm font-semibold text-amparo-50 outline-amparo-400 transition hover:border-amparo-400 hover:text-amparo-300 focus-visible:outline-2 focus-visible:outline-offset-4">Entre em contato</Link>
+                  </div>
                 </div>
               </div>
             </Carousel.Item>

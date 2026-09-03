@@ -1,13 +1,14 @@
 import { Menu01, XClose } from "@untitledui/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button, Link } from "react-aria-components";
+import { useLocation } from "react-router-dom";
 import { cx } from "@/utils/cx";
 
 const navigation = [
-  { label: "Início", href: "#inicio" },
-  { label: "Serviços", href: "#servicos" },
-  { label: "Como funciona", href: "#como-funciona" },
-  { label: "Sobre nós", href: "#sobre" },
+  { label: "Início", href: "/" },
+  { label: "Serviços", href: "/servicos" },
+  { label: "Como funciona", href: "/como-funciona" },
+  { label: "Sobre nós", href: "/sobre-nos" },
 ];
 
 function Header() {
@@ -15,11 +16,14 @@ function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [isOnHero, setIsOnHero] = useState(true);
   const lastScrollY = useRef(0);
+  const location = useLocation();
+  const isLandingPage = location.pathname === "/";
+  const useHeroStyle = isLandingPage && isOnHero;
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const onHero = currentScrollY < window.innerHeight - 72;
+      const onHero = isLandingPage && currentScrollY < window.innerHeight - 1;
 
       setIsOnHero(onHero);
       if (onHero || currentScrollY < lastScrollY.current - 8) {
@@ -34,26 +38,26 @@ function Header() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isLandingPage]);
 
   return (
     <header
       className={cx(
-        "fixed inset-x-0 top-0 z-50 border-0 transition-[transform,background-color,color] duration-300",
+        "fixed inset-x-0 top-0 z-[100] border-0 transition-[transform,background-color,color] duration-300",
         isVisible || isMenuOpen ? "translate-y-0" : "-translate-y-full",
-        isOnHero ? "bg-transparent text-white" : "bg-amparo-50/95 text-amparo-900 shadow-lg backdrop-blur-md",
+        useHeroStyle ? "bg-transparent text-white" : "bg-amparo-50/95 text-amparo-900 shadow-lg backdrop-blur-md",
       )}
     >
-      <div className="mx-auto flex h-18 max-w-container items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-container items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
-          href="#inicio"
+          href="/"
           aria-label="Amparo — página inicial"
-          className="rounded outline-brand focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="w-56 rounded outline-brand focus-visible:outline-2 focus-visible:outline-offset-2 lg:w-64"
         >
           <img
             src="/images/amparo-consultoria-logo.png"
             alt="Amparo Consultoria"
-            className={cx("h-12 w-44 object-contain object-left transition", isOnHero && "brightness-0 invert")}
+            className={cx("h-14 w-full object-contain object-left transition lg:h-16", useHeroStyle && "brightness-0 invert")}
           />
         </Link>
 
@@ -62,7 +66,7 @@ function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={cx("rounded px-3 py-2 text-sm font-medium outline-amparo-400 transition focus-visible:outline-2 focus-visible:outline-offset-2", isOnHero ? "text-white/85 hover:text-amparo-300" : "text-amparo-900/80 hover:text-amparo-600")}
+              className={cx("rounded-lg px-4 py-3 text-base font-medium outline-amparo-400 transition focus-visible:outline-2 focus-visible:outline-offset-2", useHeroStyle ? "text-white/90 hover:text-amparo-300" : "text-amparo-900/85 hover:text-amparo-600")}
             >
               {item.label}
             </Link>
@@ -71,10 +75,10 @@ function Header() {
 
         <div className="hidden md:block">
           <Link
-            href="#contato"
-            className={cx("inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold outline-amparo-400 transition focus-visible:outline-2 focus-visible:outline-offset-2", isOnHero ? "bg-amparo-50 text-amparo-900 hover:bg-amparo-400" : "bg-amparo-900 text-amparo-50 hover:bg-amparo-600")}
+            href={isLandingPage ? "#contato" : "/#contato"}
+            className={cx("inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-base font-semibold shadow-lg outline-amparo-400 transition duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2", useHeroStyle ? "bg-amparo-50 text-amparo-900 hover:bg-amparo-400" : "bg-amparo-900 text-amparo-50 hover:bg-amparo-600")}
           >
-            Encontrar um cuidador
+            Entrar em contato
           </Link>
         </div>
 
@@ -83,7 +87,7 @@ function Header() {
           aria-controls="mobile-navigation"
           aria-expanded={isMenuOpen}
           onPress={() => setIsMenuOpen((open) => !open)}
-          className={cx("flex size-10 items-center justify-center rounded outline-amparo-400 focus-visible:outline-2 focus-visible:outline-offset-2 md:hidden", isOnHero ? "text-white hover:text-amparo-300" : "text-amparo-900 hover:text-amparo-600")}
+          className={cx("flex size-10 items-center justify-center rounded outline-amparo-400 focus-visible:outline-2 focus-visible:outline-offset-2 md:hidden", useHeroStyle ? "text-white hover:text-amparo-300" : "text-amparo-900 hover:text-amparo-600")}
         >
           {isMenuOpen ? <XClose aria-hidden="true" className="size-6" /> : <Menu01 aria-hidden="true" className="size-6" />}
         </Button>
@@ -105,11 +109,11 @@ function Header() {
             </Link>
           ))}
           <Link
-            href="#contato"
+            href={isLandingPage ? "#contato" : "/#contato"}
             onPress={() => setIsMenuOpen(false)}
             className="mt-3 inline-flex justify-center rounded-lg bg-brand-solid px-4 py-2.5 text-sm font-semibold text-white shadow-xs-skeuomorphic outline-brand hover:bg-brand-solid_hover focus-visible:outline-2"
           >
-            Encontrar um cuidador
+            Entrar em contato
           </Link>
         </nav>
       </div>

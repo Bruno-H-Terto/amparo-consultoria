@@ -15,9 +15,9 @@
     --color-carousel-overlay: rgb(0 0 0);
 
     /* FONT FAMILY */
-    --font-body: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    --font-display: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    --font-editorial: Georgia, "Times New Roman", serif;
+    --font-body: "Poppins", -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Poppins", -apple-system, "Segoe UI", sans-serif;
+    --font-editorial: "Poppins", -apple-system, "Segoe UI", sans-serif;
     --font-mono: ui-monospace, "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     /* FONT SIZE */
