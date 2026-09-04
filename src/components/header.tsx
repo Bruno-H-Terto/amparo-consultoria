@@ -1,5 +1,5 @@
 import { Menu01, XClose } from "@untitledui/icons";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button, Link } from "react-aria-components";
 import { useLocation } from "react-router-dom";
 import { cx } from "@/utils/cx";
@@ -13,38 +13,14 @@ const navigation = [
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [isOnHero, setIsOnHero] = useState(true);
-  const lastScrollY = useRef(0);
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
-  const useHeroStyle = isLandingPage && isOnHero;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const onHero = isLandingPage && currentScrollY < window.innerHeight - 1;
-
-      setIsOnHero(onHero);
-      if (onHero || currentScrollY < lastScrollY.current - 8) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current + 8) {
-        setIsVisible(false);
-        setIsMenuOpen(false);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLandingPage]);
+  const useHeroStyle = isLandingPage;
 
   return (
     <header
       className={cx(
-        "fixed inset-x-0 top-0 z-[100] border-0 transition-[transform,background-color,color] duration-300",
-        isVisible || isMenuOpen ? "translate-y-0" : "-translate-y-full",
+        "absolute inset-x-0 top-0 z-[100] border-0 transition-[background-color,color] duration-300",
         useHeroStyle ? "bg-transparent text-white" : "bg-amparo-50/95 text-amparo-900 shadow-lg backdrop-blur-md",
       )}
     >

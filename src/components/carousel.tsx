@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Link } from "react-aria-components";
+import { useEffect, useState } from "react";
+import { Button, Link } from "react-aria-components";
 import { Carousel, useCarousel } from "@/components/base/carousel-base";
 import { cx } from "@/utils/cx";
 
@@ -34,21 +34,23 @@ function ArrowIcon({ className }: { className?: string }) {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className={className}><path d="M8.91 19.92 15.43 13.4a1.98 1.98 0 0 0 0-2.8L8.91 4.08" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
-function AutoAdvance({ delay = 20000 }: { delay?: number }) {
+function AutoAdvance({ delay = 20000, isPaused }: { delay?: number; isPaused: boolean }) {
   const { api, selectedIndex } = useCarousel();
   useEffect(() => {
-    if (!api) return;
+    if (!api || isPaused) return;
     const timeout = window.setTimeout(() => api.scrollNext(), delay);
     return () => window.clearTimeout(timeout);
-  }, [api, delay, selectedIndex]);
+  }, [api, delay, isPaused, selectedIndex]);
   return null;
 }
 
 export default function HeroCarousel() {
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <section id="inicio" className="h-svh overflow-hidden bg-amparo-900">
       <Carousel.Root aria-label="Apresentação Amparo" opts={{ loop: true }} className="group h-full overflow-hidden">
-        <AutoAdvance />
+        <AutoAdvance isPaused={isPaused} />
         <Carousel.Content className="h-full">
           {slides.map((slide, index) => (
             <Carousel.Item key={slide.title} aria-label={`${index + 1} de ${slides.length}`} className="relative h-full overflow-hidden">
@@ -77,7 +79,14 @@ export default function HeroCarousel() {
         <Carousel.IndicatorGroup className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 gap-2" aria-label="Selecionar destaque">
           {({ index }) => <Carousel.Indicator key={index} index={index} className={({ isSelected }) => cx("h-0.5 transition-all hover:bg-amparo-400", isSelected ? "w-12 bg-amparo-50" : "w-7 bg-amparo-50/40")} />}
         </Carousel.IndicatorGroup>
+        <Button onPress={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? "Retomar troca automática" : "Pausar troca automática"} className="absolute right-6 bottom-7 z-20 flex min-h-11 items-center gap-2 rounded-full bg-amparo-900/65 px-4 py-2 text-sm font-semibold text-white outline-amparo-400 backdrop-blur-md transition hover:bg-amparo-900 focus-visible:outline-2 focus-visible:outline-offset-3">
+          {isPaused ? <PlayIcon className="size-5" /> : <PauseIcon className="size-5" />}
+          <span className="hidden sm:inline">{isPaused ? "Retomar" : "Pausar"}</span>
+        </Button>
       </Carousel.Root>
     </section>
   );
 }
+
+function PauseIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}><path d="M9 7v10M15 7v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>; }
+function PlayIcon({ className }: { className?: string }) { return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}><path d="m9 7 8 5-8 5V7Z" fill="currentColor" /></svg>; }

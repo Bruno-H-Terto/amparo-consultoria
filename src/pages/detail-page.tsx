@@ -78,7 +78,7 @@ export default function DetailPage({ eyebrow, title, description, image, imageAl
             {sections.flatMap((section) => section.items).map((item) => {
               const currentIndex = itemIndex++;
               return (
-                <details key={item} className="group relative rounded-xl border border-amparo-200 bg-amparo-50 open:border-amparo-400 open:bg-white">
+                <details key={item} name={isProcess ? "etapas-amparo" : "servicos-amparo"} className="group relative rounded-xl border border-amparo-200 bg-amparo-50 open:border-amparo-400 open:bg-white">
                   <summary className="flex min-h-24 cursor-pointer list-none items-center justify-between gap-5 rounded-xl p-5 outline-amparo-400 transition hover:border-amparo-400 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-3 sm:p-6">
                     <div className="relative z-10 flex items-center gap-5">
                       <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-amparo-900 text-base font-bold text-white">{String(currentIndex + 1).padStart(2, "0")}</span>
