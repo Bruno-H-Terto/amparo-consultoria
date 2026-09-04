@@ -1,9 +1,36 @@
 import { Form } from "react-aria-components";
+import type { FormEvent } from "react";
 import { Button } from "@/components/base/buttons/button";
 import { Input } from "@/components/base/input/input";
 import { TextArea } from "@/components/base/textarea/textarea";
 
 export default function ContactPage() {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER?.replace(/\D/g, "");
+    if (!whatsappNumber) {
+      window.alert("O número de atendimento ainda não foi configurado.");
+      return;
+    }
+
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+    const text = [
+      "Olá, equipe Amparo! Gostaria de solicitar um contato.",
+      "",
+      `Nome: ${name}`,
+      `Telefone: ${phone}`,
+      `E-mail: ${email}`,
+      `Como podemos ajudar: ${message}`,
+    ].join("\n");
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <section id="contato" className="relative min-h-svh overflow-hidden bg-amparo-600">
       <img src="/images/gallery-01.jpg" alt="" className="absolute inset-0 size-full object-cover object-[50%_52%]" />
@@ -12,7 +39,7 @@ export default function ContactPage() {
       <div aria-hidden="true" className="absolute -bottom-52 left-1/3 size-[30rem] rounded-full bg-amparo-900/45 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid min-h-svh w-full max-w-container items-center gap-12 px-6 py-20 lg:grid-cols-[29rem_1fr] lg:gap-24 lg:px-8">
-          <Form onSubmit={(event) => event.preventDefault()} className="grid gap-5 rounded-3xl bg-amparo-50/96 p-8 text-amparo-900 shadow-2xl backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-1 lg:p-10">
+          <Form onSubmit={handleSubmit} className="grid gap-5 rounded-3xl bg-amparo-50/96 p-8 text-amparo-900 shadow-2xl backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-1 lg:p-10">
             <div className="sm:col-span-2 lg:col-span-1">
               <p className="text-xs font-semibold tracking-[0.2em] text-amparo-600 uppercase">Converse com a Amparo</p>
               <h2 className="mt-3 text-2xl font-semibold">Solicite um contato</h2>
@@ -21,7 +48,7 @@ export default function ContactPage() {
             <Input name="phone" type="tel" label="Telefone" placeholder="(00) 00000-0000" isRequired />
             <Input name="email" type="email" label="E-mail" placeholder="voce@exemplo.com" isRequired className="sm:col-span-2 lg:col-span-1" />
             <TextArea name="message" label="Como podemos ajudar?" placeholder="Conte brevemente o que você procura" isRequired rows={3} className="sm:col-span-2 lg:col-span-1" />
-            <Button type="submit" size="md" className="sm:col-span-2 lg:col-span-1">Enviar mensagem</Button>
+            <Button type="submit" size="md" className="sm:col-span-2 lg:col-span-1">Conversar pelo WhatsApp</Button>
           </Form>
 
           <div className="max-w-xl text-amparo-50">
