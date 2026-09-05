@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Link } from "react-aria-components";
-import { Carousel, useCarousel } from "@/components/base/carousel-base";
+import * as Carousel from "@/components/base/carousel-base";
+import { useCarousel } from "@/components/base/carousel-context";
 import { cx } from "@/utils/cx";
 
 const slides = [

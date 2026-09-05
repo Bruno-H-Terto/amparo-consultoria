@@ -121,7 +121,3 @@ For other hosts, configure an equivalent SPA fallback. Set `VITE_WHATSAPP_NUMBER
 2. Open the preview URL in Chrome and wait for images and fonts to load.
 3. Capture `/`, `/servicos`, `/como-funciona`, `/sobre-nos`, and `/#contato` at 1440 × 900; capture `/` at 390 × 844.
 4. Capture the home page with its first slide visible. Use the same filenames under `docs/screenshots/` and update the capture date above.
-
-## Verification
-
-For this documentation update, the production build passed and Oxlint completed with 11 existing warnings in shared button and carousel components. No automated test script is currently defined in `package.json`.
